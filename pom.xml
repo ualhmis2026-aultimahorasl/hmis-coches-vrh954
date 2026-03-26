@@ -16,12 +16,12 @@
     </properties>
 
     <build>
-        <!-- IMPORTANTE: porque tu estructura no es estándar -->
+        
         <sourceDirectory>src</sourceDirectory>
         <testSourceDirectory>test</testSourceDirectory>
 
         <plugins>
-            <!-- Compilador -->
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -31,7 +31,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Tests -->
+          
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -41,7 +41,7 @@
     </build>
 
     <dependencies>
-        <!-- JUnit 5 -->
+       
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -49,7 +49,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JSON -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
