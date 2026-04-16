@@ -24,5 +24,11 @@ class JsonReaderTest {
 		assertTrue (coches[0].equals(primero));
 	}
 
+	@Test
+	void testLeerCochesJSONarchivoNoExiste() {
+		Coche[] coches = JsonReader.leerCochesJSON("archivo_inexistente.json");
+		assertNull(coches);
+	}
+
 
 }
