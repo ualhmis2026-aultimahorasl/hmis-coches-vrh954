@@ -25,6 +25,12 @@ class JsonReaderTest {
 	}
 
 	@Test
+	void testConstructor() {
+		JsonReader reader = new JsonReader();
+		assertNotNull(reader);
+	}
+
+	@Test
 	void testLeerCochesJSONarchivoNoExiste() {
 		Coche[] coches = JsonReader.leerCochesJSON("archivo_inexistente.json");
 		assertNull(coches);

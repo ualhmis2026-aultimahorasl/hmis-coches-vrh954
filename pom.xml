@@ -50,6 +50,7 @@
                         <disable>true</disable>
                     </consoleOutputReporter>
                     <statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporter"/>
+                    <argLine>@{argLine} -Dfile.encoding=UTF-8</argLine>
                 </configuration>
             </plugin>
 
@@ -57,7 +58,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.12</version>
+                <version>0.8.13</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -103,6 +104,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>4.0.0-M7</version>
+                <configuration>
+                    <locales>es,en</locales>
+                </configuration>
             </plugin>
 
             <!-- Checkstyle -->
@@ -110,6 +114,19 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.6.0</version>
+                <configuration>
+                    <configLocation>config/checkstyle/checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>checkstyle-validation</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- JXR -->
@@ -125,6 +142,11 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.20.0</version>
                 <configuration>
+                    <linkXref>true</linkXref>
+                    <sourceEncoding>utf-8</sourceEncoding>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>17</targetJdk>
+                    <skipEmptyReport>false</skipEmptyReport>
                     <rulesets>
                         <ruleset>/rulesets/java/braces.xml</ruleset>
                         <ruleset>/rulesets/java/naming.xml</ruleset>
@@ -138,6 +160,9 @@
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.9.8.3</version>
                 <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <failOnError>true</failOnError>
                     <includeFilterFile>${session.executionRootDirectory}/spotbugs-security-include.xml</includeFilterFile>
                     <excludeFilterFile>${session.executionRootDirectory}/spotbugs-security-exclude.xml</excludeFilterFile>
                     <plugins>
@@ -156,12 +181,18 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.5.0</version>
                 <configuration>
+                    <show>private</show>
                     <doclet>nl.talsmasoftware.umldoclet.UMLDoclet</doclet>
                     <docletArtifact>
                         <groupId>nl.talsmasoftware</groupId>
                         <artifactId>umldoclet</artifactId>
                         <version>2.1.0</version>
                     </docletArtifact>
+                    <additionalOptions>
+                        <additionalOption>-umlImageFormat svg_img</additionalOption>
+                        <additionalOption>-private</additionalOption>
+                        <additionalOption>-umlExcludedTypeReferences</additionalOption>
+                    </additionalOptions>
                 </configuration>
             </plugin>
 
@@ -169,9 +200,16 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>8.2.1</version>
+                <version>12.1.0</version>
                 <configuration>
                     <nvdApiKey>1ba3058d-1862-4a22-aca7-a8d2d11fdccf</nvdApiKey>
+                    <skipTestScope>false</skipTestScope>
+                    <failBuildOnCVSS>11</failBuildOnCVSS>
+                    <failOnError>false</failOnError>
+                    <formats>
+                        <format>HTML</format>
+                        <format>XML</format>
+                    </formats>
                 </configuration>
             </plugin>
 
@@ -192,6 +230,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.6.0</version>
+                <configuration>
+                    <configLocation>config/checkstyle/checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                </configuration>
             </plugin>
 
             <!-- PMD -->
@@ -200,6 +242,11 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.20.0</version>
                 <configuration>
+                    <linkXref>true</linkXref>
+                    <sourceEncoding>utf-8</sourceEncoding>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>17</targetJdk>
+                    <skipEmptyReport>false</skipEmptyReport>
                     <rulesets>
                         <ruleset>/rulesets/java/braces.xml</ruleset>
                         <ruleset>/rulesets/java/naming.xml</ruleset>
@@ -213,6 +260,8 @@
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.9.8.3</version>
                 <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
                     <includeFilterFile>${session.executionRootDirectory}/spotbugs-security-include.xml</includeFilterFile>
                     <excludeFilterFile>${session.executionRootDirectory}/spotbugs-security-exclude.xml</excludeFilterFile>
                     <plugins>
@@ -231,12 +280,18 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.5.0</version>
                 <configuration>
+                    <show>private</show>
                     <doclet>nl.talsmasoftware.umldoclet.UMLDoclet</doclet>
                     <docletArtifact>
                         <groupId>nl.talsmasoftware</groupId>
                         <artifactId>umldoclet</artifactId>
                         <version>2.1.0</version>
                     </docletArtifact>
+                    <additionalOptions>
+                        <additionalOption>-umlImageFormat svg_img</additionalOption>
+                        <additionalOption>-private</additionalOption>
+                        <additionalOption>-umlExcludedTypeReferences</additionalOption>
+                    </additionalOptions>
                 </configuration>
             </plugin>
 
@@ -244,9 +299,16 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>8.2.1</version>
+                <version>12.1.0</version>
                 <configuration>
                     <nvdApiKey>1ba3058d-1862-4a22-aca7-a8d2d11fdccf</nvdApiKey>
+                    <skipTestScope>false</skipTestScope>
+                    <failBuildOnCVSS>11</failBuildOnCVSS>
+                    <failOnError>false</failOnError>
+                    <formats>
+                        <format>HTML</format>
+                        <format>XML</format>
+                    </formats>
                 </configuration>
             </plugin>
         </plugins>
@@ -286,6 +348,26 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>nl.talsmasoftware</groupId>
+            <artifactId>umldoclet</artifactId>
+            <version>2.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Dependencias vulnerables para demostrar OWASP Dependency Check -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.15.0</version>
         </dependency>
 
     </dependencies>

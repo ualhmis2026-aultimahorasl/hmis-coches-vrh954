@@ -11,7 +11,7 @@ class CocheTest {
         Coche coche = new Coche();
         assertNull(coche.getMarca());
         assertNull(coche.getModelo());
-        assertEquals(0, coche.getAño());
+        assertEquals(0, coche.getAnio());
         assertEquals(0, coche.getPrecio());
     }
 
@@ -20,7 +20,7 @@ class CocheTest {
         Coche coche = new Coche("Toyota", "Corolla", 2023, 25000);
         assertEquals("Toyota", coche.getMarca());
         assertEquals("Corolla", coche.getModelo());
-        assertEquals(2023, coche.getAño());
+        assertEquals(2023, coche.getAnio());
         assertEquals(25000, coche.getPrecio());
     }
 
@@ -41,8 +41,8 @@ class CocheTest {
     @Test
     void testGetSetAnio() {
         Coche coche = new Coche();
-        coche.setAño(2024);
-        assertEquals(2024, coche.getAño());
+        coche.setAnio(2024);
+        assertEquals(2024, coche.getAnio());
     }
 
     @Test
@@ -68,13 +68,13 @@ class CocheTest {
     @Test
     void testEqualsNull() {
         Coche coche = new Coche("Toyota", "Corolla", 2023, 25000);
-        assertNotEquals(null, coche);
+        assertFalse(coche.equals(null));
     }
 
     @Test
     void testEqualsDistintaClase() {
         Coche coche = new Coche("Toyota", "Corolla", 2023, 25000);
-        assertNotEquals("un string", coche);
+        assertFalse(coche.equals("un string"));
     }
 
     @Test
@@ -106,9 +106,44 @@ class CocheTest {
     }
 
     @Test
+    void testEqualsAnioDiferenteShortCircuit() {
+        Coche coche1 = new Coche("Toyota", "Corolla", 2023, 25000);
+        Coche coche2 = new Coche("Toyota", "Corolla", 2020, 25000);
+        assertNotEquals(coche1, coche2);
+    }
+
+    @Test
+    void testEqualsMarcaNullAmbos() {
+        Coche coche1 = new Coche(null, "Corolla", 2023, 25000);
+        Coche coche2 = new Coche(null, "Corolla", 2023, 25000);
+        assertEquals(coche1, coche2);
+    }
+
+    @Test
+    void testEqualsModeloNullAmbos() {
+        Coche coche1 = new Coche("Toyota", null, 2023, 25000);
+        Coche coche2 = new Coche("Toyota", null, 2023, 25000);
+        assertEquals(coche1, coche2);
+    }
+
+    @Test
+    void testEqualsMarcaNullUno() {
+        Coche coche1 = new Coche(null, "Corolla", 2023, 25000);
+        Coche coche2 = new Coche("Toyota", "Corolla", 2023, 25000);
+        assertNotEquals(coche1, coche2);
+    }
+
+    @Test
+    void testEqualsModeloNullUno() {
+        Coche coche1 = new Coche("Toyota", null, 2023, 25000);
+        Coche coche2 = new Coche("Toyota", "Corolla", 2023, 25000);
+        assertNotEquals(coche1, coche2);
+    }
+
+    @Test
     void testToString() {
         Coche coche = new Coche("Toyota", "Corolla", 2023, 25000);
-        String expected = "Coche [marca=Toyota, modelo=Corolla, año=2023, precio=25000]";
+        String expected = "Coche [marca=Toyota, modelo=Corolla, anio=2023, precio=25000]";
         assertEquals(expected, coche.toString());
     }
 }

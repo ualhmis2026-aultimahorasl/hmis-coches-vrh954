@@ -5,24 +5,21 @@ import java.util.Objects;
 public class Coche {
     private String marca;
     private String modelo;
-    private int año;
+    private int anio;
     private int precio;
 
     // Constructor por defecto
-    public Coche() {}
+    public Coche() { }
 
-    
-    
-    public Coche(String marca, String modelo, int año, int precio) {
-		super();
-		this.marca = marca;
-		this.modelo = modelo;
-		this.año = año;
-		this.precio = precio;
-	}
+    public Coche(String marca, String modelo, int anio, int precio) {
+        super();
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anio = anio;
+        this.precio = precio;
+    }
 
-
-	// Getters y setters
+    // Getters y setters
     public String getMarca() {
         return marca;
     }
@@ -39,12 +36,12 @@ public class Coche {
         this.modelo = modelo;
     }
 
-    public int getAño() {
-        return año;
+    public int getAnio() {
+        return anio;
     }
 
-    public void setAño(int año) {
-        this.año = año;
+    public void setAnio(int anio) {
+        this.anio = anio;
     }
 
     public int getPrecio() {
@@ -55,27 +52,26 @@ public class Coche {
         this.precio = precio;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Coche other = (Coche) obj;
+        return anio == other.anio && Objects.equals(marca, other.marca)
+                && Objects.equals(modelo, other.modelo)
+                && precio == other.precio;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Coche other = (Coche) obj;
-		return año == other.año && Objects.equals(marca, other.marca) && Objects.equals(modelo, other.modelo)
-				&& precio == other.precio;
-	}
+    @Override
+    public String toString() {
+        return "Coche [marca=" + marca + ", modelo=" + modelo + ", anio=" + anio + ", precio=" + precio + "]";
+    }
 
-
-
-	@Override
-	public String toString() {
-		return "Coche [marca=" + marca + ", modelo=" + modelo + ", año=" + año + ", precio=" + precio + "]";
-	}
-	
-	
-    
 }
