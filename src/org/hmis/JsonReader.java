@@ -27,7 +27,7 @@ public class JsonReader {
 
             
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error al leer el archivo: " + e.getMessage());
         }
         return coches;
         
