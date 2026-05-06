@@ -230,6 +230,9 @@
                 <configuration>
                     <configLocation>config/checkstyle/checkstyle.xml</configLocation>
                     <consoleOutput>true</consoleOutput>
+                    <sourceDirectories>
+                        <sourceDirectory>${project.basedir}/src</sourceDirectory>
+                    </sourceDirectories>
                 </configuration>
             </plugin>
 
